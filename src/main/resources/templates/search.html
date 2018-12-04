@@ -35,11 +35,13 @@
     </form>
 
     <hr />
-
+    <div th:if="${count}">
+    <h3 th:text="${count}+ ' Result(s)'"></h3>
+    </div>
     <!-- TODO #2 - Loop over jobs map to display all job fields -->
     <table class = "job-listing" th:each="jobs : ${jobslist}">
         <tr th:each="singlejob : ${jobs}">
-            <td th:text="${singlejob.key}">Key</td>
+            <td th:text="${#strings.capitalizeWords(singlejob.key)}">Key</td>
             <td th:text="${singlejob.value}">Value</td>
         </tr>
     </table>
