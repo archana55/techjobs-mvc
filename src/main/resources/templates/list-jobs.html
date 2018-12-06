@@ -10,6 +10,9 @@
 
     <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
 
+    <div th:if="${count}">
+        <h3 th:text="${count}+ ' Result(s)'"></h3>
+    </div>
     <!-- TODO #3 - Use the same list display from search.html -->
     <table class = "job-listing" th:each="jobs : ${jobslist}">
         <tr th:each="singlejob : ${jobs}">

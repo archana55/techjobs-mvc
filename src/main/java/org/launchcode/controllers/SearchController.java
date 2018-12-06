@@ -19,16 +19,27 @@ public class SearchController {
     @RequestMapping(value = "")
     public String search(Model model) {
         model.addAttribute("columns", ListController.columnChoices);
+        model.addAttribute("radioSelection" ,"all");
         return "search";
     }
 
     // TODO #1 - Create handler to process search request and display results
     @RequestMapping(value = "results")
     public String processSearchForm(Model model, @RequestParam String searchType, @RequestParam String searchTerm){
-        ArrayList<HashMap<String,String>> jobs = JobData.findByColumnAndValue(searchType ,searchTerm );
-        model.addAttribute("jobslist",jobs);
-        model.addAttribute("columns",ListController.columnChoices);
-        model.addAttribute("count",jobs.size());
+        ArrayList<HashMap<String, String>> jobs;
+
+        if (!searchType.equals("all")) {
+            jobs = JobData.findByColumnAndValue(searchType, searchTerm);
+        }
+
+        else {
+            jobs = JobData.findByValue(searchTerm);
+        }
+
+        model.addAttribute("jobslist", jobs);
+        model.addAttribute("columns", ListController.columnChoices);
+        model.addAttribute("count", jobs.size());
+        model.addAttribute("radioSelection" ,searchType);
         return "search";
     }
 
